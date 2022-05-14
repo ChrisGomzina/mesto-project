@@ -1,0 +1,5 @@
+.element__button-like_disabled {
+  background-image: url(../../../../images/buttons/like-button-disabled.svg);
+  min-width: 22px;
+  min-height: 19px;
+}

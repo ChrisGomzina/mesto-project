@@ -1,0 +1,9 @@
+.element__button-like {
+  background-color: white;
+  border: none;
+  align-self: center;
+}
+
+.element__button-like:hover {
+  opacity: 0.5;
+}
