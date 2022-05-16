@@ -4,15 +4,16 @@
   background-size: contain;
   background-position: center;
   width: 142px;
+  height: 33px;
   padding-top: 45px;
-  padding-bottom: 39px;
+  padding-bottom: 41px;
 }
 
 @media screen and (max-width: 670px) {
   .header__logo {
     margin-left: 27px;
     width: 103px;
-    padding-top: 28px;
-    padding-bottom: 55px;
+    padding-top: 19px;
+    padding-bottom: 31px;
   }
 }

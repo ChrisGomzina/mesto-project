@@ -4,7 +4,6 @@
   border-radius: 10px;
   color: #000000;
   min-width: 430px;
-  max-height: 330px;
   position: relative;
   z-index: 1;
 }
@@ -12,6 +11,5 @@
 @media screen and (max-width: 920px) {
   .popup__container {
     min-width: 282px;
-    max-height: 322px;
   }
 }
