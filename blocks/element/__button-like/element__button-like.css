@@ -1,5 +1,5 @@
 .element__button-like {
-  background-image: url(../../../../images/buttons/like-button-disabled.svg);
+  background-image: url(../../../images/buttons/like-button.svg);
   background-color: white;
   border: none;
   min-width: 22px;
