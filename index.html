@@ -30,6 +30,7 @@
         <template id="element">
           <article class="element">
             <img class="element__photo" src="" alt="">
+            <button class="element__trash" type="button"></button>
             <div class="element__description">
               <h2 class="element__title"></h2>
               <button class="element__button-like" type="button"></button>
@@ -44,7 +45,7 @@
     </footer>
   </div>
   <!--Блок popup для редактирования профиля-->
-  <div class="popup popup-profile">
+  <div class="popup popup_profile">
     <div class="popup__container">
       <button class="popup__button-close popup__button-close_profile" type="button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
@@ -58,7 +59,7 @@
     </div>
   </div>
   <!--Блок popup для добавления карточек-->
-  <div class="popup popup-element">
+  <div class="popup popup_element">
     <div class="popup__container">
       <button class="popup__button-close popup__button-close_element" type="button"></button>
       <h2 class="popup__title">Новое место</h2>
@@ -69,6 +70,16 @@
           <button class="popup__button-save" type="submit">Создать</button>
         </fieldset>
       </form>
+    </div>
+  </div>
+  <!--Блок popup с увеличенными изображениями-->
+  <div class="popup popup_photo">
+    <div class="popup_photo__contaner">
+      <button class="popup__button-close popup_photo__button-close" type="button"></button>
+      <figure class="popup_photo__item">
+        <img class="popup_photo__image" src="" alt="">
+        <figcaption class="popup_photo__caption"></figcaption>
+      </figure>
     </div>
   </div>
   <script src="./script.js"></script>

@@ -8,7 +8,7 @@ function PopupToggle(popup) {
 } 
 
 //Открытие и закрытие модального окна с редактированием профиля
-const profilePopup = document.querySelector('.popup-profile');
+const profilePopup = document.querySelector('.popup_profile');
 const profileCloseButton = profilePopup.querySelector('.popup__button-close_profile');
 
 editButton.addEventListener ('click', () => {
@@ -20,7 +20,7 @@ profileCloseButton.addEventListener ('click', () => {
 });
 
 //Открытие и закрытие модального окна с добавлением карточек
-const elementPopup = document.querySelector('.popup-element');
+const elementPopup = document.querySelector('.popup_element');
 const elementCloseButton = elementPopup.querySelector('.popup__button-close_element');
 
 addButton.addEventListener ('click', () => {
@@ -29,6 +29,14 @@ addButton.addEventListener ('click', () => {
 
 elementCloseButton.addEventListener ('click', () => {
   PopupToggle(elementPopup);
+});
+
+//Закрытие модального окна с изображением
+const photoPopup = document.querySelector('.popup_photo');
+const photoCloseButton = photoPopup.querySelector('.popup_photo__button-close');
+
+photoCloseButton.addEventListener ('click', () => {
+  PopupToggle(photoPopup);
 });
 
 //Ниже реализована функция редактирование имени и информации о себе
@@ -76,17 +84,15 @@ const initialElements = [
   }
 ]; 
 
-
-const elements = document.querySelector('.elements');
 const elementTemplate = document.querySelector('#element').content;
 
-function renderElement (arreyElements) {
+function renderElement (arreyElement) {
   const elementItem = elementTemplate.querySelector('.element').cloneNode(true);
   const photoElement = elementItem.querySelector('.element__photo');
   const titleElement = elementItem.querySelector('.element__title');
 
-  titleElement.textContent = arreyElements.name;
-  photoElement.src = arreyElements.link;
+  titleElement.textContent = arreyElement.name;
+  photoElement.src = arreyElement.link;
 
   //Ниже реализация лайка карточек 
   const likeButton = elementItem.querySelector('.element__button-like');
@@ -99,8 +105,33 @@ function renderElement (arreyElements) {
     like(likeButton);
   })
 
+  //Ниже реализация открытия модального окна с изображением
+  const photoPopup = document.querySelector('.popup_photo');
+
+  photoElement.addEventListener ('click', () => {
+    const imagePhotoPopup = document.querySelector('.popup_photo__image');
+    imagePhotoPopup.src = arreyElement.link;
+    const photoCaption = document.querySelector('.popup_photo__caption');
+    photoCaption.textContent = arreyElement.name;
+    PopupToggle(photoPopup);
+  });
+
+  //Ниже реализация удаления карточки
+  const deleteButton = document.querySelector('.element__trash');
+  function deleteItem(item) {
+    let index= initialElements.indexOf(item);
+    initialElements.splice(index, 1);
+  } 
+
+  deleteButton.addEventListener('click', () => {
+    deleteItem(elementItem);
+  })
+
+
   return elementItem;
 }
+
+const elements = document.querySelector('.elements');
 
 initialElements.forEach(function(element) {
   const card = renderElement(element);
