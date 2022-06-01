@@ -116,19 +116,7 @@ function renderElement (arreyElement) {
     PopupToggle(photoPopup);
   });
 
-  //Ниже реализация удаления карточки
-  const deleteButton = document.querySelector('.element__trash');
-  function deleteItem(item) {
-    let index= initialElements.indexOf(item);
-    initialElements.splice(index, 1);
-  } 
-
-  deleteButton.addEventListener('click', () => {
-    deleteItem(elementItem);
-  })
-
-
-  return elementItem;
+   return elementItem;
 }
 
 const elements = document.querySelector('.elements');
@@ -136,4 +124,25 @@ const elements = document.querySelector('.elements');
 initialElements.forEach(function(element) {
   const card = renderElement(element);
   elements.prepend(card);
+});
+
+//Ниже реализация добавления карточки из модального окна
+const placeInput = document.querySelector('.popup__input_type_place');
+const imageInput = document.querySelector('.popup__input_type_image');
+
+elementPopup.addEventListener('submit', function(evt) {
+  evt.preventDefault();
+  const arreyElements = {
+    name: placeInput.value,
+    link: imageInput.value,
+  }
+    placeInput.value = '';
+    imageInput.value = '';
+  
+   const saveButton = document.querySelector('.popup__button-save');
+  
+   saveButton.addEventLitener('click', function () {
+     popup_element.classList.remove(popup_opened);
+   })
+  renderElement(arreyElements, elements);
 });
