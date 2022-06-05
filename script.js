@@ -99,11 +99,18 @@ function renderElement (arreyElement) {
 
   function like(element) {
     element.classList.toggle('element__button-like_active');
-  } 
+  };
 
   likeButton.addEventListener ('click', () => {
     like(likeButton);
-  })
+  });
+
+  //Ниже реализация удаления карточки
+  const deleteButton = elementItem.querySelector('.element__trash');
+
+  deleteButton.addEventListener('click', () => {
+    elementItem.remove();
+  });
 
   //Ниже реализация открытия модального окна с изображением
   const photoPopup = document.querySelector('.popup_photo');
@@ -127,10 +134,11 @@ initialElements.forEach(function(element) {
 });
 
 //Ниже реализация добавления карточки из модального окна
+const elementPopupForm = document.querySelector('.popup__form_element');
 const placeInput = document.querySelector('.popup__input_type_place');
 const imageInput = document.querySelector('.popup__input_type_image');
 
-elementPopup.addEventListener('submit', function(evt) {
+elementPopupForm.addEventListener('submit', function(evt) {
   evt.preventDefault();
   const arreyElements = {
     name: placeInput.value,
@@ -141,8 +149,9 @@ elementPopup.addEventListener('submit', function(evt) {
   
    const saveButton = document.querySelector('.popup__button-save');
   
-   saveButton.addEventLitener('click', function () {
+   saveButton.addEventLitener('click', function (popup_element) {
      popup_element.classList.remove(popup_opened);
-   })
+   });
+
   renderElement(arreyElements, elements);
 });
