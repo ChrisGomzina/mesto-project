@@ -143,15 +143,11 @@ elementPopupForm.addEventListener('submit', function(evt) {
   const arreyElements = {
     name: placeInput.value,
     link: imageInput.value,
-  }
+  };
+
     placeInput.value = '';
     imageInput.value = '';
   
-   const saveButton = document.querySelector('.popup__button-save');
-  
-   saveButton.addEventLitener('click', function (popup_element) {
-     popup_element.classList.remove(popup_opened);
-   });
-
-  renderElement(arreyElements, elements);
+  elements.prepend(renderElement(arreyElements, elements));
+  PopupToggle(elementPopup);
 });
