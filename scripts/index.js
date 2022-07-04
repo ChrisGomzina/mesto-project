@@ -167,3 +167,39 @@ buttonCloseCardPopup.addEventListener ('click', () => {
 buttonCloseImagePopup.addEventListener ('click', () => {
   closePopup(imagePopup);
 });
+
+//Функция управления состоянием кнопки 
+function setSubmitButtonState(isFormValid, button) {
+  if (isFormValid) {
+    button.removeAttribute('disabled');
+    button.classList.remove('popup__button_state_disabled');
+  } else {
+    button.setAttribute('disabled', true);
+    button.classList.add('popup__button_state_disabled');
+  }
+};
+
+// Функция добавления класса с ошибкой
+const showInputError = (formElement, inputElement, errorMessage) => {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.add('popup__input_state_invalid');
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add('popup__input-error_active');
+};
+
+// Функция удаления класса с ошибкой
+const hideInputError = (formElement, inputElement) => {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove('popup__input_state_invalid');
+  errorElement.classList.remove('popup__input-error_active');
+  errorElement.textContent = '';
+}; 
+
+//Функция проверки валидности формы
+const isValid = (formElement, inputElement) => {
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage);
+  } else {
+    hideInputError(formElement, inputElement);
+  }
+}; 
