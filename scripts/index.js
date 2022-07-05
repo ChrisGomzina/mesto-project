@@ -71,11 +71,13 @@ const initialElements = [
 //Функция открытия мадального окна
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', keyHandler);
 }
 
 //Функция закрытия мадального окна
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', keyHandler);
 }
 
 //Функция лайка карточки
@@ -227,7 +229,6 @@ const hideInputError = (formElement, inputElement, config) => {
 const hideAllErrors = (buttonElement, config) => {
   const errorElements = Array.from(document.querySelectorAll(`.${config.errorClass}`));
   const errorInputs = Array.from(document.querySelectorAll(`.${config.inputErrorClass}`));
-  console.log(errorInputs);
   errorElements.forEach((error) => {
     error.classList.remove(config.errorClass);
     error.textContent = "";
@@ -275,12 +276,14 @@ const enableValidation = (config) => {
 
 enableValidation(validationConfig);
 
-document.addEventListener('clik', function(evt) {
-  if (evt.target.classList.contains('.popup_opened')) {
+//Закрытие модального окна по клику на оверлей
+document.addEventListener('mousedown', function(evt) {
+  if (evt.target.classList.contains('popup_opened')) {
     closePopup(evt.target);
   }
 });
 
+//Закрытие модального окна кнопкой escape
 function keyHandler(evt) {
   if (evt.key === "Escape") {
     const activePopup = document.querySelector('.popup_opened');
