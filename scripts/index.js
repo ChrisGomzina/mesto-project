@@ -12,6 +12,10 @@ const buttonCloseProfilePopup = profilePopup.querySelector('.popup__button-close
 const buttonCloseCardPopup = cardPopup.querySelector('.popup__button-close_element');
 const buttonCloseImagePopup = imagePopup.querySelector('.popup_photo__button-close');
 
+//Нашла книпки сабмита модальных окон
+const buttonSaveProfilePopup = document.querySelector('.popup__button-save_profile-popup');
+const buttonSaveElementPopup = document.querySelector('.popup__button-save_element-popup');
+
 //Нашла имя и название професии на странице
 const nameProfile = document.querySelector('.profile__name');
 const jobProfile =  document.querySelector('.profile__job');
@@ -148,6 +152,7 @@ buttonEdit.addEventListener ('click', () => {
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
   openPopup(profilePopup);
+  hideAllErrors(buttonSaveProfilePopup, validationConfig);
 });
 
 buttonCloseProfilePopup.addEventListener ('click', () => {
@@ -157,6 +162,8 @@ buttonCloseProfilePopup.addEventListener ('click', () => {
 //Открытие и закрытие модального окна с добавлением карточек
 buttonAdd.addEventListener ('click', () => {
   openPopup(cardPopup);
+  hideAllErrors(buttonSaveProfilePopup, validationConfig);
+  cardPopupForm.reset();
 });
 
 buttonCloseCardPopup.addEventListener ('click', () => {
@@ -168,38 +175,117 @@ buttonCloseImagePopup.addEventListener ('click', () => {
   closePopup(imagePopup);
 });
 
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button-save', 
+  inactiveButtonClass: 'popup__button_state_disabled',
+  inputErrorClass: 'popup__input_state_invalid',
+  errorClass: 'popup__input-error_active'
+}; 
+
+//Проверка инпутов на валидность
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  })
+}; 
+
+//Неактивное состяние кнопки сабмита
+const disableSubmitButton = (buttonElement, config) => {
+    buttonElement.setAttribute('disabled', true);
+    buttonElement.classList.add(config.inactiveButtonClass);
+};
+
 //Функция управления состоянием кнопки 
-function setSubmitButtonState(isFormValid, button) {
-  if (isFormValid) {
-    button.removeAttribute('disabled');
-    button.classList.remove('popup__button_state_disabled');
+function setSubmitButtonState(inputList, buttonElement, config) {
+  if (hasInvalidInput(inputList)) {
+    disableSubmitButton(buttonElement, config);
   } else {
-    button.setAttribute('disabled', true);
-    button.classList.add('popup__button_state_disabled');
+    buttonElement.removeAttribute('disabled', true);
+    buttonElement.classList.remove(config.inactiveButtonClass);
   }
 };
 
 // Функция добавления класса с ошибкой
-const showInputError = (formElement, inputElement, errorMessage) => {
+const showInputError = (formElement, inputElement, errorMessage, config) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add('popup__input_state_invalid');
+  inputElement.classList.add(config.inputErrorClass);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add('popup__input-error_active');
+  errorElement.classList.add(config.errorClass);
 };
 
 // Функция удаления класса с ошибкой
-const hideInputError = (formElement, inputElement) => {
+const hideInputError = (formElement, inputElement, config) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove('popup__input_state_invalid');
-  errorElement.classList.remove('popup__input-error_active');
+  inputElement.classList.remove(config.inputErrorClass);
+  errorElement.classList.remove(config.errorClass);
   errorElement.textContent = '';
-}; 
+};
 
-//Функция проверки валидности формы
-const isValid = (formElement, inputElement) => {
+//Скрытие всех ошибок
+const hideAllErrors = (buttonElement, config) => {
+  const errorElements = Array.from(document.querySelectorAll(`.${config.errorClass}`));
+  const errorInputs = Array.from(document.querySelectorAll(`.${config.inputErrorClass}`));
+  console.log(errorInputs);
+  errorElements.forEach((error) => {
+    error.classList.remove(config.errorClass);
+    error.textContent = "";
+  });
+  errorInputs.forEach((input) => {
+    input.classList.remove(config.inputErrorClass);
+  });
+  disableSubmitButton(buttonElement, config);
+};
+
+//Проверка валидности формы
+const isValid = (formElement, inputElement, config) => {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
+    showInputError(formElement, inputElement, inputElement.validationMessage, config);
   } else {
-    hideInputError(formElement, inputElement);
+    hideInputError(formElement, inputElement, config);
   }
 }; 
+
+//Установка слушателей
+const setEventListeners = (formElement, config) => {
+  const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+  const buttonElement = formElement.querySelector(config.submitButtonSelector); 
+  setSubmitButtonState(inputList, buttonElement, config);
+  
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('input', () => {
+      isValid(formElement, inputElement, config);
+      setSubmitButtonState(inputList, buttonElement, config);
+    });
+  });
+}; 
+
+//Валидация всех форм
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+
+  formList.forEach((formElement) => {
+    formElement.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+    });
+    setEventListeners(formElement, config);
+  });
+};
+
+enableValidation(validationConfig);
+
+document.addEventListener('clik', function(evt) {
+  if (evt.target.classList.contains('.popup_opened')) {
+    closePopup(evt.target);
+  }
+});
+
+function keyHandler(evt) {
+  if (evt.key === "Escape") {
+    const activePopup = document.querySelector('.popup_opened');
+    if (activePopup) {
+      closePopup(activePopup);
+    }
+  }
+};
