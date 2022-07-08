@@ -39,3 +39,5 @@ export const elementTemplate = document.querySelector('#element').content;
 
 //Нашла контейнер, куда буду добавлять карточки
 export const elements = document.querySelector('.elements');
+
+export const popups = document.querySelectorAll('.popup');

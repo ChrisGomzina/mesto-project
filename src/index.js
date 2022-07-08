@@ -21,11 +21,12 @@ import { buttonEdit,
   photoImagePopup,
   captionImagePopup,
   elementTemplate,
-  elements } from './scripts/components/constants.js';
+  elements,
+  popups } from './scripts/components/constants.js';
 
 import { openPopup,
   closePopup,
-  keyHandler } from './scripts/components/popup.js'
+  handleEscapeKey } from './scripts/components/popup.js'
 
 import { initialElements,
   like,
@@ -42,14 +43,14 @@ import { validationConfig,
   setEventListeners,
   enableValidation } from './scripts/components/validate.js';
 
-import { formSubmitHandler } from './scripts/components/popupProfile.js';
+import { handleProfileFormSubmit } from './scripts/components/popupProfile.js';
 
 initialElements.forEach(function(element) {
   const card = renderElement(element);
   elements.prepend(card);
 });
 
-profilePopupForm.addEventListener('submit', formSubmitHandler);
+profilePopupForm.addEventListener('submit', handleProfileFormSubmit);
 
 //Ниже реализация добавления карточки из модального окна
 cardPopupForm.addEventListener('submit', function(evt) {
@@ -59,11 +60,22 @@ cardPopupForm.addEventListener('submit', function(evt) {
     link: imageInput.value,
   };
 
-  placeInput.value = '';
-  imageInput.value = '';
+  evt.target.reset();
   
   elements.prepend(renderElement(arreyElement, elements));
   closePopup(cardPopup);
+});
+
+//Закрытие модальных окон по клику на оверлей и кнопку закрытия
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) => {
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(popup);
+    };
+    if (evt.target.classList.contains('popup__button-close')) {
+      closePopup(popup);
+    };
+  });
 });
 
 //Открытие и закрытие модального окна с редактированием профиля
@@ -74,31 +86,11 @@ buttonEdit.addEventListener ('click', () => {
   hideAllErrors(buttonSaveProfilePopup, validationConfig);
 });
 
-buttonCloseProfilePopup.addEventListener ('click', () => {
-  closePopup(profilePopup);
-});
-
 //Открытие и закрытие модального окна с добавлением карточек
 buttonAdd.addEventListener ('click', () => {
   openPopup(cardPopup);
-  hideAllErrors(buttonSaveProfilePopup, validationConfig);
+  hideAllErrors(buttonSaveElementPopup, validationConfig);
   cardPopupForm.reset();
-});
-
-buttonCloseCardPopup.addEventListener ('click', () => {
-  closePopup(cardPopup);
-});
-
-//Закрытие модального окна с изображением
-buttonCloseImagePopup.addEventListener ('click', () => {
-  closePopup(imagePopup);
-});
-
-//Закрытие модального окна по клику на оверлей
-document.addEventListener('mousedown', function(evt) {
-  if (evt.target.classList.contains('popup_opened')) {
-    closePopup(evt.target);
-  }
 });
 
 enableValidation(validationConfig);

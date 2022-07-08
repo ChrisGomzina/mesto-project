@@ -7,7 +7,7 @@ import { nameProfile,
 import { closePopup } from './popup.js';
 
 //Ниже реализована функция редактирование имени и информации о себе
-export function formSubmitHandler(evt) {
+export function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   nameProfile.textContent = nameInput.value;
   jobProfile.textContent = jobInput.value;
