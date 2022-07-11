@@ -17,6 +17,7 @@
       <!--Блок profile-->
       <section class="profile">
         <img class="profile__avatar" src="<%=require('./images/profile-avatar.jpg')%>" alt="Фото профиля">
+        <button class="profile__avatar-button"></button>
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <button class="profile__edit-button" type="button"></button>
@@ -75,6 +76,20 @@
       </figure>
     </div>
   </div>
+  <!--Блок popup для обновления аватара-->
+  <div class="popup popup_avatar popup_opened">
+    <div class="popup__container">
+      <button class="popup__button-close popup__button-close_avatar" type="button"></button>
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form class="popup__form popup__form_avatar" name="avatar" novalidate>
+        <fieldset class="popup__input-container">
+          <input id="avatar-input" type="url" class="popup__input popup__input_type_avatar" name="avatar" placeholder="Ссылка на картинку" required>
+          <span class="form__input-error popup__input-error"></span>
+          <button class="popup__button-save popup__button-save_element-avatar" type="submit">Сохранить</button>
+        </fieldset>
+      </form>
+    </div>
+  </div>
   <!--Темплэйт элемента-->
   <template id="element">
     <article class="element">
@@ -82,7 +97,10 @@
       <button class="element__trash" type="button"></button>
       <div class="element__description">
         <h2 class="element__title"></h2>
-        <button class="element__button-like" type="button"></button>
+        <div class="element__likes-container">
+          <button class="element__button-like" type="button"></button>
+          <span class="element__like-counter">6</span>
+        </div>
       </div>
     </article>
   </template>

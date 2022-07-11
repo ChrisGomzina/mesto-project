@@ -45,6 +45,18 @@ import { validationConfig,
 
 import { handleProfileFormSubmit } from './scripts/components/popupProfile.js';
 
+import { config,
+  checkResponse,
+  getUserInfo,
+  getInitialCards,
+  editUserInfo,
+  addCard,
+  likeCard,
+  dislikeCard,
+  deleteCard,
+  editAvatar,
+  getAllData } from './scripts/components/api.js';
+
 initialElements.forEach(function(element) {
   const card = renderElement(element);
   elements.prepend(card);
