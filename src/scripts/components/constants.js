@@ -19,6 +19,7 @@ export const buttonSaveElementPopup = document.querySelector('.popup__button-sav
 //Нашла имя и название професии на странице
 export const nameProfile = document.querySelector('.profile__name');
 export const jobProfile =  document.querySelector('.profile__job');
+export const avatarProfile = document.querySelector('.profile__avatar');
 
 //Нашла форму модального окна с редактированием профиля
 export const profilePopupForm = document.querySelector('.popup__form_profile');

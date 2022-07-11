@@ -12,6 +12,7 @@ import { buttonEdit,
   buttonSaveElementPopup,
   nameProfile,
   jobProfile,
+  avatarProfile,
   profilePopupForm,
   nameInput,
   jobInput,
@@ -56,6 +57,24 @@ import { config,
   deleteCard,
   editAvatar,
   getAllData } from './scripts/components/api.js';
+
+  let userId = null;
+
+  getAllData()
+  .then(([cards, user]) => {
+    nameProfile.textContent = user.name;
+    jobProfile.textContent = user.about;
+    avatarProfile.src = user.avatar;
+    userId = user._id;
+
+    cards.reverse().forEach((data) => {
+      renderElement(data, card, userId) //?
+    });
+  });
+
+
+
+
 
 initialElements.forEach(function(element) {
   const card = renderElement(element);
