@@ -1,8 +1,8 @@
 export const config = {
-  url: "https://nomoreparties.co/v1/cohort-13",
+  url: "https://nomoreparties.co/v1/plus-cohort-15",
   headers: {
     "content-type": "application/json",
-    "authorization": "ed0356ec-0189-41a5-8fc1-93bcf6145429"
+    "authorization": "9cfce386-84bd-41a8-ae69-e779d7b6a47d"
   },
 };
 
@@ -95,7 +95,7 @@ export function editAvatar(config, data) {
         avatar: data.avatar
       })
   })
-  .then(res => checkResponse(res));  
+  .then(res => checkResponse(res));
 };
 
 export function getAllData() {
