@@ -29,9 +29,9 @@ import { openPopup,
   closePopup,
   handleEscapeKey } from './scripts/components/popup.js'
 
-import { initialElements,
-  like,
-  renderElement } from './scripts/components/card.js'
+import { createCard,
+  hasDeleteButton,
+  addCardToMarkup } from './scripts/components/card.js'
 
 import { validationConfig,
   hasInvalidInput,
@@ -55,31 +55,38 @@ import { config,
   likeCard,
   dislikeCard,
   deleteCard,
-  editAvatar,
-  getAllData } from './scripts/components/api.js';
+  editAvatar } from './scripts/components/api.js';
 
-  let userId = null;
+let userId = null;
 
-  getAllData()
-  .then(([cards, user]) => {
-    nameProfile.textContent = user.name;
-    jobProfile.textContent = user.about;
-    avatarProfile.src = user.avatar;
-    userId = user._id;
+//Получение данных пользователя и картинок с сервера
+function getAllData() {
+  getUserInfo()
+    .then((data) => {
+      nameProfile.textContent = data.name;
+      jobProfile.textContent = data.about;
+      avatarProfile.src = data.avatar;
+      userId = data._id;
 
-    cards.reverse().forEach((data) => {
-      renderElement(data, card, userId) //?
+      getInitialCards()
+        .then((data) => {
+          data.reverse().forEach((data) => {
+            addCardToMarkup(data);
+            hasDeleteButton(data, userId);
+          });
+        })
+
+        .catch((err) => {
+          console.log(err);
+        });
+    })
+
+    .catch((err) => {
+      console.log(err);
     });
-  });
+};
 
-
-
-
-
-initialElements.forEach(function(element) {
-  const card = renderElement(element);
-  elements.prepend(card);
-});
+getAllData();
 
 profilePopupForm.addEventListener('submit', handleProfileFormSubmit);
 
@@ -92,36 +99,10 @@ cardPopupForm.addEventListener('submit', function(evt) {
   };
 
   evt.target.reset();
-  
+
   elements.prepend(renderElement(arreyElement, elements));
   closePopup(cardPopup);
 });
 
-//Закрытие модальных окон по клику на оверлей и кнопку закрытия
-popups.forEach((popup) => {
-  popup.addEventListener('mousedown', (evt) => {
-    if (evt.target.classList.contains('popup_opened')) {
-      closePopup(popup);
-    };
-    if (evt.target.classList.contains('popup__button-close')) {
-      closePopup(popup);
-    };
-  });
-});
-
-//Открытие и закрытие модального окна с редактированием профиля
-buttonEdit.addEventListener ('click', () => {
-  nameInput.value = nameProfile.textContent;
-  jobInput.value = jobProfile.textContent;
-  openPopup(profilePopup);
-  hideAllErrors(buttonSaveProfilePopup, validationConfig);
-});
-
-//Открытие и закрытие модального окна с добавлением карточек
-buttonAdd.addEventListener ('click', () => {
-  openPopup(cardPopup);
-  hideAllErrors(buttonSaveElementPopup, validationConfig);
-  cardPopupForm.reset();
-});
 
 enableValidation(validationConfig);

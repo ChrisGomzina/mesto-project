@@ -16,7 +16,7 @@ export function checkResponse(res) {
 };
 
 //Получение информации о пользователе
-export function getUserInfo(config) {
+export function getUserInfo() {
   return fetch(`${config.url}/users/me`, {
     method: 'GET',
     headers: config.headers
@@ -25,7 +25,7 @@ export function getUserInfo(config) {
 };
 
 //Получение карточек с сервера
-export function getInitialCards(config) {
+export function getInitialCards() {
   return fetch(`${config.url}/cards`, {
      method: 'GET',
      headers: config.headers
@@ -34,13 +34,13 @@ export function getInitialCards(config) {
 };
 
 //Редактирование профиля
-export function editUserInfo(config, userData) {
+export function editUserInfo(userName, userJob) {
   return fetch(`${config.url}/users/me`, {
     method: 'PATCH',
     headers: config.headers,
     body: JSON.stringify({
-      name: userData.userName,
-      about: userData.userJob
+      name: userName,
+      about: userJob
     })
   })
   .then(res => checkResponse(res));
@@ -98,6 +98,3 @@ export function editAvatar(config, data) {
   .then(res => checkResponse(res));
 };
 
-export function getAllData() {
-  return Promise.all([getInitialCards(), getUserInfo()]);
-};

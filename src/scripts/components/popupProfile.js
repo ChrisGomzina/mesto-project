@@ -6,10 +6,20 @@ import { nameProfile,
 
 import { closePopup } from './popup.js';
 
+import { editUserInfo } from './api.js';
+
 //Ниже реализована функция редактирование имени и информации о себе
 export function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  nameProfile.textContent = nameInput.value;
-  jobProfile.textContent = jobInput.value;
-  closePopup(profilePopup);
+
+  editUserInfo(nameInput.value, jobInput.value)
+    .then((res) => {
+      nameProfile.textContent = nameInput.value;
+      jobProfile.textContent = jobInput.value;
+      closePopup(profilePopup);
+    })
+
+    .catch((err) => {
+      console.log(err);
+    })
 }

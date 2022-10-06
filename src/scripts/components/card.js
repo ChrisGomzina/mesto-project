@@ -5,6 +5,7 @@ import { elementTemplate,
 
 import { openPopup } from './popup.js';
 
+//Функция создания карточки
 export function createCard(data) {
   const card = elementTemplate.querySelector('.element').cloneNode(true);
   const photoCard = card.querySelector('.element__photo');
@@ -59,9 +60,14 @@ function toggleLike(button, counter) {
 }
 
 //Проверка id для удаления кнопки "удалить" из dom
-function hasDeleteButton(data, userId) {
+export function hasDeleteButton(data, userId) {
   if (userId !== data.owner._id) {
     const buttonDelete = card.querySelector('.element__trash');
     buttonDelete.remove();
   }
 }
+
+//Добавление карточек в разметку
+export function addCardToMarkup(card) {
+  elements.prepend(createCard(card));
+};
