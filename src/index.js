@@ -2,14 +2,17 @@ import './pages/index.css';
 
 import { buttonEdit,
   buttonAdd,
+  buttonAvatar,
   profilePopup,
   cardPopup,
   imagePopup,
+  avatarPopup,
   buttonCloseProfilePopup,
   buttonCloseCardPopup,
   buttonCloseImagePopup,
   buttonSaveProfilePopup,
   buttonSaveElementPopup,
+  buttonSaveAvatarPopup,
   nameProfile,
   jobProfile,
   avatarProfile,
@@ -19,6 +22,8 @@ import { buttonEdit,
   cardPopupForm,
   placeInput,
   imageInput,
+  avatarPopupForm,
+  avatarInput,
   photoImagePopup,
   captionImagePopup,
   elementTemplate,
@@ -43,8 +48,6 @@ import { validationConfig,
   isValid,
   setEventListeners,
   enableValidation } from './scripts/components/validate.js';
-
-import { handleProfileFormSubmit } from './scripts/components/popupProfile.js';
 
 import { config,
   checkResponse,
@@ -84,25 +87,69 @@ function getAllData() {
     .catch((err) => {
       console.log(err);
     });
-};
+}
 
 getAllData();
 
+//Функция редактирование имени и информации о себе
+function handleProfileFormSubmit(evt) {
+  evt.preventDefault();
+
+  editUserInfo(nameInput.value, jobInput.value)
+    .then((res) => {
+      nameProfile.textContent = nameInput.value;
+      jobProfile.textContent = jobInput.value;
+      closePopup(profilePopup);
+    })
+
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
 profilePopupForm.addEventListener('submit', handleProfileFormSubmit);
+
+
+//Функция обновления аватара
+function handleAvatarFormSubmit(evt) {
+  evt.preventDefault();
+
+  editAvatar(avatarInput.value)
+  .then((res) => {
+    avatarProfile.src = avatarInput.value;
+    closePopup(avatarPopup);
+  })
+
+  .catch((err) => {
+    console.log(err);
+  });
+}
+
+avatarPopupForm.addEventListener('submit', handleAvatarFormSubmit);
 
 //Ниже реализация добавления карточки из модального окна
 cardPopupForm.addEventListener('submit', function(evt) {
   evt.preventDefault();
-  const arreyElement = {
+  const newCard = {
     name: placeInput.value,
     link: imageInput.value,
+    likes: []
   };
 
-  evt.target.reset();
+  addCard(newCard)
+  .then((data) => {
+    newCard._id = data._id;
+    elements.prepend(createCard(data));
+    closePopup(cardPopup);
+  })
 
-  elements.prepend(renderElement(arreyElement, elements));
-  closePopup(cardPopup);
+  .catch((err) => {
+    console.log(err);
+  });
+
+  evt.target.reset();
 });
 
 
+//Валидация всех форм
 enableValidation(validationConfig);

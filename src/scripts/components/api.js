@@ -47,7 +47,7 @@ export function editUserInfo(userName, userJob) {
 };
 
 //Добавление новой карточки
-export function addCard(config, data) {
+export function addCard(data) {
   return fetch(`${config.url}/cards`, {
      method: 'POST',
      headers: config.headers,
@@ -87,12 +87,12 @@ export function dislikeCard(config, id) {
   };
 
 //Обновление аватара
-export function editAvatar(config, data) {
+export function editAvatar(avatarURL) {
   return fetch(`${config.url}/users/me/avatar`, {
       method: 'PATCH',
       headers: config.headers,
       body: JSON.stringify({
-        avatar: data.avatar
+        avatar: avatarURL
       })
   })
   .then(res => checkResponse(res));

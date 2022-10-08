@@ -1,15 +1,19 @@
 import { popups,
   buttonEdit,
   buttonAdd,
+  buttonAvatar,
   nameInput,
   jobInput,
   nameProfile,
   jobProfile,
   profilePopup,
   cardPopup,
+  avatarPopup,
   cardPopupForm,
+  avatarPopupForm,
   buttonSaveProfilePopup,
-  buttonSaveElementPopup } from './constants.js';
+  buttonSaveElementPopup,
+  buttonSaveAvatarPopup } from './constants.js';
 
 import {
   validationConfig,
@@ -35,7 +39,7 @@ export function handleEscapeKey(evt) {
       closePopup(activePopup);
     }
   }
-};
+}
 
 //Закрытие модальных окон по клику на оверлей и кнопку закрытия
 popups.forEach((popup) => {
@@ -62,4 +66,11 @@ buttonAdd.addEventListener ('click', () => {
   openPopup(cardPopup);
   hideAllErrors(buttonSaveElementPopup, validationConfig);
   cardPopupForm.reset();
+});
+
+//Открытие и закрытие модального окна для обновления аватара
+buttonAvatar.addEventListener ('click', () => {
+  openPopup(avatarPopup);
+  hideAllErrors(buttonSaveAvatarPopup, validationConfig);
+  avatarPopupForm.reset();
 });
