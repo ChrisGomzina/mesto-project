@@ -13,7 +13,8 @@ import { popups,
   avatarPopupForm,
   buttonSaveProfilePopup,
   buttonSaveElementPopup,
-  buttonSaveAvatarPopup } from './constants.js';
+  buttonSaveAvatarPopup,
+  buttonsSave } from './constants.js';
 
 import {
   validationConfig,
@@ -74,3 +75,16 @@ buttonAvatar.addEventListener ('click', () => {
   hideAllErrors(buttonSaveAvatarPopup, validationConfig);
   avatarPopupForm.reset();
 });
+
+//Функция отображения загрузки
+export function loading(isLoading) {
+  if(isLoading) {
+    buttonsSave.forEach((button) => {
+      button.textContent = 'Сохранение...'
+    });
+  } else {
+    buttonsSave.forEach((button) => {
+      button.textContent = 'Сохранить'
+    });
+  }
+}

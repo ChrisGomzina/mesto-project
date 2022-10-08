@@ -60,7 +60,7 @@ export function addCard(data) {
 };
 
 //Лайки
-export function likeCard(config, id) {
+export function likeCard(id) {
     return fetch(`${config.url}/cards/likes/${id}`, {
       method: 'PUT',
       headers: config.headers
@@ -69,7 +69,7 @@ export function likeCard(config, id) {
   };
 
 //Дизлайки
-export function dislikeCard(config, id) {
+export function dislikeCard(id) {
     return fetch(`${config.url}/cards/likes/${id}`, {
       method: 'DELETE',
       headers: config.headers
@@ -78,7 +78,7 @@ export function dislikeCard(config, id) {
   };
 
 //Удаление карточки
- export function deleteCard(config, id) {
+ export function deleteCard(id) {
     return fetch(`${config.url}/cards/${id}`, {
       method: 'DELETE',
       headers: config.headers

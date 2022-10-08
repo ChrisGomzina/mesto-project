@@ -20,6 +20,7 @@ export const buttonCloseImagePopup = imagePopup.querySelector('.popup_photo__but
 export const buttonSaveProfilePopup = document.querySelector('.popup__button-save_profile-popup');
 export const buttonSaveElementPopup = document.querySelector('.popup__button-save_element-popup');
 export const buttonSaveAvatarPopup = document.querySelector('.popup__button-save_avatar');
+export const buttonsSave = document.querySelectorAll('.popup__button-save');
 
 //Нашла имя и название професии на странице
 export const nameProfile = document.querySelector('.profile__name');

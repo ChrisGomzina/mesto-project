@@ -32,11 +32,14 @@ import { buttonEdit,
 
 import { openPopup,
   closePopup,
-  handleEscapeKey } from './scripts/components/popup.js'
+  handleEscapeKey,
+  loading } from './scripts/components/popup.js'
 
 import { createCard,
   hasDeleteButton,
-  addCardToMarkup } from './scripts/components/card.js'
+  addCardToMarkup,
+  hasLikeButton,
+  isCardLiked } from './scripts/components/card.js'
 
 import { validationConfig,
   hasInvalidInput,
@@ -76,6 +79,7 @@ function getAllData() {
           data.reverse().forEach((data) => {
             addCardToMarkup(data);
             hasDeleteButton(data, userId);
+            data.likes.forEach((like) => isCardLiked(like, userId));
           });
         })
 
@@ -104,7 +108,13 @@ function handleProfileFormSubmit(evt) {
 
     .catch((err) => {
       console.log(err);
+    })
+
+    .finally((res) => {
+      loading(false);
     });
+
+    loading(true);
 }
 
 profilePopupForm.addEventListener('submit', handleProfileFormSubmit);
@@ -122,7 +132,13 @@ function handleAvatarFormSubmit(evt) {
 
   .catch((err) => {
     console.log(err);
+  })
+
+  .finally((res) => {
+    loading(false);
   });
+
+  loading(true);
 }
 
 avatarPopupForm.addEventListener('submit', handleAvatarFormSubmit);
@@ -138,14 +154,20 @@ cardPopupForm.addEventListener('submit', function(evt) {
 
   addCard(newCard)
   .then((data) => {
-    newCard._id = data._id;
-    elements.prepend(createCard(data));
+    data._id = newCard._id;
+    elements.prepend(createCard(newCard));
     closePopup(cardPopup);
   })
 
   .catch((err) => {
     console.log(err);
+  })
+
+  .finally((res) => {
+    loading(false);
   });
+
+  loading(true);
 
   evt.target.reset();
 });
