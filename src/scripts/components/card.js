@@ -9,6 +9,9 @@ import { openPopup } from './popup.js';
 import { likeCard,
   dislikeCard,
   deleteCard } from './api.js';
+
+import { userId } from '../../index.js'
+
 import { data } from 'autoprefixer';
 
 //Функция создания карточки
@@ -20,6 +23,7 @@ export function createCard(data) {
   const buttonLike = card.querySelector('.element__button-like');
   const buttonDelete = card.querySelector('.element__trash');
   const likeCounter = card.querySelector('.element__like-counter');
+  const likesArray = data.likes;
 
   let cardId = '';
 
@@ -29,7 +33,20 @@ export function createCard(data) {
   likeCounter.textContent = data.likes.length;
   cardId = data._id;
 
-  //Слушатель лайка карточек
+  //Проверка id для удаления кнопки "удалить" из dom
+  if (userId !== data.owner._id) {
+    buttonDelete.remove();
+  }
+
+  //Проверка id для лайка
+  if (likesArray.some(function(data) {
+    return data._id === userId;
+  })
+  ) {
+    buttonLike.classList.add('element__button-like_active');
+  }
+
+   //Слушатель лайка карточек
   buttonLike.addEventListener ('click', () => {
     toggleLike(buttonLike, likeCounter, cardId);
   });
@@ -73,22 +90,6 @@ function toggleLike(button, counter, id) {
     .catch((err) => {
       console.log(err);
     });
-  }
-}
-
-//Проверка id для лайка
-export function isCardLiked (data, userId) {
-  const buttonLike = document.querySelector('.element__button-like');
-  if (data._id === userId) {
-    buttonLike.classList.add('element__button-like_active');
-  }
-}
-
-//Проверка id для удаления кнопки "удалить" из dom
-export function hasDeleteButton(data, userId) {
-  if (userId !== data.owner._id) {
-    const buttonDelete = document.querySelector('.element__trash');
-    buttonDelete.remove();
   }
 }
 

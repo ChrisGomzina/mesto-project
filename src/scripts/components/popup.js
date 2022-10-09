@@ -36,9 +36,7 @@ export function closePopup(popup) {
 export function handleEscapeKey(evt) {
   if (evt.key === "Escape") {
     const activePopup = document.querySelector('.popup_opened');
-    if (activePopup) {
-      closePopup(activePopup);
-    }
+    closePopup(activePopup);
   }
 }
 
@@ -54,37 +52,16 @@ popups.forEach((popup) => {
   });
 });
 
-//Открытие и закрытие модального окна с редактированием профиля
-buttonEdit.addEventListener ('click', () => {
-  nameInput.value = nameProfile.textContent;
-  jobInput.value = jobProfile.textContent;
-  openPopup(profilePopup);
-  hideAllErrors(buttonSaveProfilePopup, validationConfig);
-});
-
-//Открытие и закрытие модального окна с добавлением карточек
-buttonAdd.addEventListener ('click', () => {
-  openPopup(cardPopup);
-  hideAllErrors(buttonSaveElementPopup, validationConfig);
-  cardPopupForm.reset();
-});
-
-//Открытие и закрытие модального окна для обновления аватара
-buttonAvatar.addEventListener ('click', () => {
-  openPopup(avatarPopup);
-  hideAllErrors(buttonSaveAvatarPopup, validationConfig);
-  avatarPopupForm.reset();
-});
-
 //Функция отображения загрузки
-export function loading(isLoading) {
+export function loading(form, isLoading, typeSave) {
+  const buttonSubmit = form.querySelector('.popup__button-save');
   if(isLoading) {
-    buttonsSave.forEach((button) => {
-      button.textContent = 'Сохранение...'
-    });
+    buttonSubmit.textContent = 'Сохранение...'
   } else {
-    buttonsSave.forEach((button) => {
-      button.textContent = 'Сохранить'
-    });
+    if(typeSave) {
+      buttonSubmit.textContent = 'Сохранить';
+    } else {
+      buttonSubmit.textContent = 'Создать';
+    }
   }
 }

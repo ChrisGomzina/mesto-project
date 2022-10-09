@@ -37,9 +37,7 @@ import { openPopup,
 
 import { createCard,
   hasDeleteButton,
-  addCardToMarkup,
-  hasLikeButton,
-  isCardLiked } from './scripts/components/card.js'
+  addCardToMarkup } from './scripts/components/card.js'
 
 import { validationConfig,
   hasInvalidInput,
@@ -63,7 +61,29 @@ import { config,
   deleteCard,
   editAvatar } from './scripts/components/api.js';
 
-let userId = null;
+//Открытие и закрытие модального окна с редактированием профиля
+buttonEdit.addEventListener ('click', () => {
+  nameInput.value = nameProfile.textContent;
+  jobInput.value = jobProfile.textContent;
+  openPopup(profilePopup);
+  hideAllErrors(buttonSaveProfilePopup, validationConfig);
+});
+
+//Открытие и закрытие модального окна с добавлением карточек
+buttonAdd.addEventListener ('click', () => {
+  openPopup(cardPopup);
+  hideAllErrors(buttonSaveElementPopup, validationConfig);
+  cardPopupForm.reset();
+});
+
+//Открытие и закрытие модального окна для обновления аватара
+buttonAvatar.addEventListener ('click', () => {
+  openPopup(avatarPopup);
+  hideAllErrors(buttonSaveAvatarPopup, validationConfig);
+  avatarPopupForm.reset();
+});
+
+export let userId = null;
 
 //Получение данных пользователя и картинок с сервера
 function getAllData() {
@@ -75,22 +95,22 @@ function getAllData() {
       userId = data._id;
 
       getInitialCards()
-        .then((data) => {
-          data.reverse().forEach((data) => {
-            addCardToMarkup(data);
-            hasDeleteButton(data, userId);
-            data.likes.forEach((like) => isCardLiked(like, userId));
-          });
-        })
-
-        .catch((err) => {
-          console.log(err);
+      .then((data) => {
+        data.reverse().forEach((data) => {
+          addCardToMarkup(data);
         });
-    })
+      })
+
+      .catch((err) => {
+        console.log(err);
+      })
 
     .catch((err) => {
       console.log(err);
     });
+
+  })
+
 }
 
 getAllData();
@@ -98,6 +118,7 @@ getAllData();
 //Функция редактирование имени и информации о себе
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
+  loading(profilePopupForm, true, true);
 
   editUserInfo(nameInput.value, jobInput.value)
     .then((res) => {
@@ -111,10 +132,8 @@ function handleProfileFormSubmit(evt) {
     })
 
     .finally((res) => {
-      loading(false);
+      loading(profilePopupForm, false, true);
     });
-
-    loading(true);
 }
 
 profilePopupForm.addEventListener('submit', handleProfileFormSubmit);
@@ -123,6 +142,7 @@ profilePopupForm.addEventListener('submit', handleProfileFormSubmit);
 //Функция обновления аватара
 function handleAvatarFormSubmit(evt) {
   evt.preventDefault();
+  loading(avatarPopupForm, true, true);
 
   editAvatar(avatarInput.value)
   .then((res) => {
@@ -135,10 +155,8 @@ function handleAvatarFormSubmit(evt) {
   })
 
   .finally((res) => {
-    loading(false);
+    loading(avatarPopupForm, false, true);
   });
-
-  loading(true);
 }
 
 avatarPopupForm.addEventListener('submit', handleAvatarFormSubmit);
@@ -146,6 +164,7 @@ avatarPopupForm.addEventListener('submit', handleAvatarFormSubmit);
 //Ниже реализация добавления карточки из модального окна
 cardPopupForm.addEventListener('submit', function(evt) {
   evt.preventDefault();
+  loading(cardPopupForm, true, true);
   const newCard = {
     name: placeInput.value,
     link: imageInput.value,
@@ -154,8 +173,8 @@ cardPopupForm.addEventListener('submit', function(evt) {
 
   addCard(newCard)
   .then((data) => {
-    data._id = newCard._id;
-    elements.prepend(createCard(newCard));
+    evt.target.reset();
+    elements.prepend(createCard(data));
     closePopup(cardPopup);
   })
 
@@ -164,12 +183,8 @@ cardPopupForm.addEventListener('submit', function(evt) {
   })
 
   .finally((res) => {
-    loading(false);
+    loading(cardPopupForm, false, false);
   });
-
-  loading(true);
-
-  evt.target.reset();
 });
 
 
