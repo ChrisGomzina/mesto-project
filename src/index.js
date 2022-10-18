@@ -32,23 +32,12 @@ import { buttonEdit,
 
 import { openPopup,
   closePopup,
-  handleEscapeKey,
-  loading } from './scripts/components/popup.js'
+  handleEscClose,
+  loading } from './scripts/components/Popup.js'
 
 import { createCard,
   hasDeleteButton,
   addCardToMarkup } from './scripts/components/card.js'
-
-import { validationConfig,
-  hasInvalidInput,
-  isableSubmitButton,
-  setSubmitButtonState,
-  showInputError,
-  hideInputError,
-  hideAllErrors,
-  isValid,
-  setEventListeners,
-  enableValidation } from './scripts/components/validate.js';
 
 import { config,
   checkResponse,
@@ -187,6 +176,5 @@ cardPopupForm.addEventListener('submit', function(evt) {
   });
 });
 
-
 //Валидация всех форм
-enableValidation(validationConfig);
+// enableValidation(validationConfig);

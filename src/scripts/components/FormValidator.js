@@ -73,7 +73,7 @@ export default class FormValidator {
     errorInputs.forEach((input) => {
       input.classList.remove(this._inputErrorClass);
     });
-    disableSubmitButton();
+    this._disableSubmitButton();
   }
 
   //Проверка валидности формы
@@ -84,9 +84,9 @@ export default class FormValidator {
       inputElement.setCustomValidity("");
     }
     if (!inputElement.validity.valid) {
-      showInputError(inputElement, errorMessage);
+      this._showInputError(inputElement, errorMessage);
     } else {
-      hideInputError(inputElement);
+      this._hideInputError(inputElement);
     }
   }
 
@@ -110,7 +110,8 @@ export default class FormValidator {
   }
 }
 
-const profilePopupFormValidate = new enableValidation(validationConfig, profilePopupForm);
+const profilePopupFormValidate = new FormValidator(validationConfig, profilePopupForm);
+profilePopupFormValidate.enableValidation();
 
 // export const validationConfig = {
 //   formSelector: ".popup__form",

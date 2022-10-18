@@ -4,7 +4,7 @@ import { elementTemplate,
   imagePopup,
   elements } from './constants.js';
 
-import { openPopup } from './popup.js';
+import { openPopup } from './Popup.js';
 
 import { likeCard,
   dislikeCard,
@@ -57,12 +57,12 @@ export function createCard(data) {
   });
 
   //Ниже реализация открытия модального окна с изображением
-  photoCard.addEventListener ('click', () => {
-    photoImagePopup.src = data.link;
-    photoImagePopup.alt = data.name;
-    captionImagePopup.textContent = data.name;
-    openPopup(imagePopup);
-  });
+  // photoCard.addEventListener ('click', () => {
+  //   photoImagePopup.src = data.link;
+  //   photoImagePopup.alt = data.name;
+  //   captionImagePopup.textContent = data.name;
+  //   openPopup(imagePopup);
+  // });
 
   return card;
 }
