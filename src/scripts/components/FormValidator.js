@@ -1,6 +1,3 @@
-import { validationConfig,
-  profilePopupForm } from './constants.js';
-
 export default class FormValidator {
   constructor(data, formElement) {
     this._inputSelector = data.inputSelector;
@@ -9,9 +6,7 @@ export default class FormValidator {
     this._inputErrorClass = data.inputErrorClass;
     this._errorClass = data.errorClass;
     this._formElement = formElement;
-    this._inputList = Array.from(
-      formElement.querySelectorAll(this._inputSelector)
-    );
+    this._inputList = Array.from(formElement.querySelectorAll(this._inputSelector));
     this._buttonElement = formElement.querySelector(this._submitButtonSelector);
   }
 
@@ -109,9 +104,6 @@ export default class FormValidator {
     this._setEventListeners();
   }
 }
-
-const profilePopupFormValidate = new FormValidator(validationConfig, profilePopupForm);
-profilePopupFormValidate.enableValidation();
 
 // export const validationConfig = {
 //   formSelector: ".popup__form",
