@@ -46,7 +46,7 @@ export const photoImagePopup = imagePopup.querySelector('.popup_photo__image');
 export const captionImagePopup = imagePopup.querySelector('.popup_photo__caption');
 
 //Нашла темплейт в разметке
-export const elementTemplate = document.querySelector('#element').content;
+export const elementTemplate = document.querySelector('#element');
 
 //Нашла контейнер, куда буду добавлять карточки
 export const elements = document.querySelector('.elements');
