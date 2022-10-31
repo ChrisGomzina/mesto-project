@@ -51,4 +51,12 @@ export const elementTemplate = document.querySelector('#element').content;
 //Нашла контейнер, куда буду добавлять карточки
 export const elements = document.querySelector('.elements');
 
-
+//Конфиг для валидации форм
+export const validationConfig = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button-save",
+  inactiveButtonClass: "popup__button_state_disabled",
+  inputErrorClass: "popup__input_state_invalid",
+  errorClass: "popup__input-error_active",
+};

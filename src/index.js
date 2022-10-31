@@ -1,5 +1,7 @@
 import './pages/index.css';
 
+import FormValidator from './scripts/components/FormValidator.js';
+
 import { buttonEdit,
   buttonAdd,
   buttonAvatar,
@@ -32,23 +34,12 @@ import { buttonEdit,
 
 import { openPopup,
   closePopup,
-  handleEscapeKey,
-  loading } from './scripts/components/popup.js'
+  handleEscClose,
+  loading } from './scripts/components/Popup.js'
 
 import { createCard,
   hasDeleteButton,
-  addCardToMarkup } from './scripts/components/card.js'
-
-import { validationConfig,
-  hasInvalidInput,
-  isableSubmitButton,
-  setSubmitButtonState,
-  showInputError,
-  hideInputError,
-  hideAllErrors,
-  isValid,
-  setEventListeners,
-  enableValidation } from './scripts/components/validate.js';
+  addCardToMarkup } from './scripts/components/Card.js'
 
 import { config,
   checkResponse,
@@ -188,5 +179,18 @@ cardPopupForm.addEventListener('submit', function(evt) {
 });
 
 
-//Валидация всех форм
-enableValidation(validationConfig);
+
+
+
+
+//Валидация формы модального окна с редактированием профиля
+const profilePopupFormValidate = new FormValidator(validationConfig, profilePopupForm);
+profilePopupFormValidate.enableValidation();
+
+//Валидация формы модального окна с добавлением карточек
+const cardPopupFormValidate = new FormValidator(validationConfig, cardPopupForm);
+cardPopupFormValidate.enableValidation();
+
+//Валидация формы обновления аватара
+const avatarPopupFormValidate = new FormValidator(validationConfig, avatarPopupForm);
+avatarPopupFormValidate.enableValidation();
