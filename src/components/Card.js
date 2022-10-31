@@ -1,5 +1,5 @@
 export default class Card {
-  constructor({data, cardSelector, userId, setLike, removeLike, handleDeleteCard, handleCardClick}) {
+  constructor(data, cardSelector, userId, toggleLike, handleDeleteCard, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
@@ -7,8 +7,7 @@ export default class Card {
     this._cardId = data._id;
     this._ownerId = data.owner._id;
     this._likesArray = data.likes;
-    this._setLike = setLike;
-    this._removeLike = removeLike;
+    this._toggleLike = toggleLike;
     this._handleDeleteCard = handleDeleteCard;
     this._handleCardClick = handleCardClick;
     this._photoImagePopup = document.querySelector('.popup_photo__image');
@@ -44,6 +43,14 @@ export default class Card {
     });
   }
 
+  //Перенести в utils
+  handleCardClick() {
+    this._photoImagePopup.src = data.link;
+    this._photoImagePopup.alt = data.name;
+    this._captionImagePopup.textContent = data.name;
+    openPopup(this._imagePopup);
+  }
+
   createCard() {
     this._card = this._getTemplate();
     this._photoCard = this._card.querySelector('.element__photo');
@@ -74,12 +81,6 @@ export default class Card {
     this._setEventListeners();
 
     return this._card;
-  }
-
-  toggleLike() {
-    this._likesArray = data.likes;
-    this._likeCounter.textContent = this._likes.length;
-    this._buttonLike.classList.toggle('element__button-like_active');
   }
 
 }

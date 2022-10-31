@@ -19,7 +19,7 @@ export default class Api {
       method: 'GET',
       headers: this._headers
     })
-    .then(res => this._checkResponse(res));
+    .then(res => _checkResponse(res));
   };
 
   //Получение карточек с сервера
@@ -28,7 +28,7 @@ export default class Api {
       method: 'GET',
       headers: this._headers
     })
-    .then(res => this._checkResponse(res));
+    .then(res => _checkResponse(res));
   };
 
   //Редактирование профиля
@@ -41,7 +41,7 @@ export default class Api {
         about: userJob
       })
     })
-    .then(res => this._checkResponse(res));
+    .then(res => _checkResponse(res));
   };
 
    //Добавление новой карточки
@@ -54,7 +54,7 @@ export default class Api {
         link: data.link
       })
     })
-    .then(res => this._checkResponse(res));
+    .then(res => _checkResponse(res));
   };
 
   //Лайки
@@ -63,7 +63,7 @@ export default class Api {
       method: 'PUT',
       headers: this._headers
     })
-    .then(res => this._checkResponse(res));
+    .then(res => _checkResponse(res));
   };
 
   //Дизлайки
@@ -72,7 +72,7 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers
     })
-    .then(res => this._checkResponse(res));
+    .then(res => _checkResponse(res));
   };
 
   //Удаление карточки
@@ -81,7 +81,7 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers
     })
-    .then(res => this._checkResponse(res));
+    .then(res => _checkResponse(res));
   };
 
   //Обновление аватара
@@ -93,7 +93,19 @@ export default class Api {
         avatar: avatarURL
       })
     })
-    .then(res => this._checkResponse(res));
+    .then(res => _checkResponse(res));
   };
 
 }
+
+const api = new Api({
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-15',
+  headers: {
+    'content-type': 'application/json',
+    'authorization': '9cfce386-84bd-41a8-ae69-e779d7b6a47d'
+  }
+});
+
+
+
+
