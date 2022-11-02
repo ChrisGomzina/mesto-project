@@ -76,6 +76,8 @@ export const imagePopupSelector = ".popup_photo";
 export const cardTemplateSelector = "#element-template";
 export const popupProfileSelector = ".popup_profile";
 export const popupCardSelector = ".popup_element";
+export const popupAvatarSelector = ".popup_avatar";
+
 
 
 //Конфиг для валидации форм

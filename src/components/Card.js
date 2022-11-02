@@ -76,8 +76,6 @@ export default class Card {
     }
   }
 
-
-
   //Публичный метод удаления карточки
   handleCardRemove() {
     this._api

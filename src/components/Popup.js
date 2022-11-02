@@ -36,36 +36,3 @@ export default class Popup {
 }
 
 
-//Функция открытия мадального окна
-// export function openPopup(popup) {
-//   popup.classList.add('popup_opened');
-//   document.addEventListener('keydown', handleEscClose);
-// }
-
-//Функция закрытия мадального окна
-// export function closePopup(popup) {
-//   popup.classList.remove('popup_opened');
-//   document.removeEventListener('keydown', handleEscClose);
-// }
-
-//Закрытие модального окна кнопкой escape
-// export function handleEscClose(evt) {
-//   if (evt.key === "Escape") {
-//     const activePopup = document.querySelector('.popup_opened');
-//     closePopup(activePopup);
-//   }
-// }
-
-//Закрытие модальных окон по клику на оверлей и кнопку закрытия
-// popups.forEach((popup) => {
-//   popup.addEventListener('mousedown', (evt) => {
-//     if (evt.target.classList.contains('popup_opened')) {
-//       closePopup(popup);
-//     };
-//     if (evt.target.classList.contains('popup__button-close')) {
-//       closePopup(popup);
-//     };
-//   });
-// });
-
-

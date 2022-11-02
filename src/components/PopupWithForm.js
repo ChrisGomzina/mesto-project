@@ -39,17 +39,3 @@ export default class PopupWithForm extends Popup {
     }
   }
 }
-
-// //Функция отображения загрузки
-// export function loading(form, isLoading, typeSave) {
-//   const buttonSubmit = form.querySelector(".popup__button-save");
-//   if (isLoading) {
-//     buttonSubmit.textContent = "Сохранение...";
-//   } else {
-//     if (typeSave) {
-//       buttonSubmit.textContent = "Сохранить";
-//     } else {
-//       buttonSubmit.textContent = "Создать";
-//     }
-//   }
-// }
