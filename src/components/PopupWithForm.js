@@ -1,7 +1,7 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
-  constructor(popupSelector, submitCallback) {
+  constructor({popupSelector, submitCallback}) {
     super(popupSelector);
     this._submitCallback = submitCallback;
     this._form = this._popup.querySelector(".popup__form");
@@ -39,17 +39,3 @@ export default class PopupWithForm extends Popup {
     }
   }
 }
-
-// //Функция отображения загрузки
-// export function loading(form, isLoading, typeSave) {
-//   const buttonSubmit = form.querySelector(".popup__button-save");
-//   if (isLoading) {
-//     buttonSubmit.textContent = "Сохранение...";
-//   } else {
-//     if (typeSave) {
-//       buttonSubmit.textContent = "Сохранить";
-//     } else {
-//       buttonSubmit.textContent = "Создать";
-//     }
-//   }
-// }
