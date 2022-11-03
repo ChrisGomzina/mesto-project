@@ -1,10 +1,5 @@
 export default class Card {
-  constructor(
-    { data, handleLikeClick, handleRemoveClick, handleCardClick },
-    cardSelector,
-    userId,
-    api
-  ) {
+  constructor( { data, handleLikeClick, handleRemoveClick, handleCardClick }, cardSelector, userId, api) {
     this._name = data.name;
     this._link = data.link;
     this._cardId = data._id;
@@ -99,10 +94,12 @@ export default class Card {
     this._photoCard.alt = this._name;
     this._likeCounter.textContent = this._likesArray.length;
     this._setEventListeners();
+
     //Проверка id для удаления кнопки "удалить" из dom
     if (this._userId !== this._ownerId) {
       this._buttonDelete.remove();
     }
+
     //Проверка id для лайка
     if (this._likesArray.find((item) => this._userId === item._id)) {
       this._buttonLike.classList.add("element__button-like_active");

@@ -4,6 +4,7 @@ export default class Api {
     this.headers = options.headers;
   }
 
+  //Проверка ответа сервера
   _specifyRequest(method, way, body = "") {
     const inputs = {
       method: method,
@@ -23,14 +24,17 @@ export default class Api {
       });
   }
 
+  //Получение информации о пользователе
   getProfileInfo() {
     return this._specifyRequest("GET", "/users/me");
   }
 
+  //Получение карточек с сервера
   renderCards() {
     return this._specifyRequest("GET", "/cards");
   }
 
+  //Редактирование профиля
   patchProfileInfo(name, about) {
     return this._specifyRequest("PATCH", "/users/me", {
       name: name,
@@ -38,12 +42,14 @@ export default class Api {
     });
   }
 
+  //Обновление аватара
   patchProfileAvatar(data) {
     return this._specifyRequest("PATCH", "/users/me/avatar", {
       avatar: data.avatar,
     });
   }
 
+  //Добавление новой карточки
   postNewCard(data) {
     return this._specifyRequest("POST", "/cards", {
       link: data.image,
@@ -51,14 +57,17 @@ export default class Api {
     });
   }
 
+  //Удаление карточки
   deleteCard(cardId) {
     return this._specifyRequest("DELETE", `/cards/${cardId}`);
   }
 
+  //Лайки
   likeCard(cardId) {
     return this._specifyRequest("PUT", `/cards/likes/${cardId}`);
   }
 
+  //Дизлайки
   unlikeCard(cardId) {
     return this._specifyRequest("DELETE", `/cards/likes/${cardId}`);
   }

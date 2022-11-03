@@ -5,6 +5,7 @@ export default class UserInfo {
     this._avatar = document.querySelector(userAvatar);
   }
 
+  //Получение информации о пользователе
   getUserInfo() {
     const userData = {
       name: this._user.textContent,
@@ -14,6 +15,7 @@ export default class UserInfo {
     return userData;
   }
 
+  //Изменение информации о пользователе
   setUserInfo(data) {
     this._user.textContent = data.name;
     this._userInfo.textContent = data.about;

@@ -15,6 +15,7 @@ export default class Popup {
     document.removeEventListener('keydown', this._handleEscClose);
   }
 
+  //Закрытие модальных окон нажатием на esc
   _handleEscClose(evt) {
     if (evt.key === "Escape") {
       const activePopup = document.querySelector('.popup_opened');

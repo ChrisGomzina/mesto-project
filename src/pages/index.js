@@ -37,8 +37,7 @@ const cardsList = new Section(
     renderer: (card) => {
       cardsList.addItem(generateCard(card));
     },
-  },
-  ".elements"
+  }, ".elements"
   );
 
 //Создание экземпляра с данными юзера
@@ -74,9 +73,7 @@ const generateCard = (data) => {
         viewImagePopup.open(data.link, data.name);
       },
     },
-    cardTemplateSelector,
-    userId,
-    api
+    cardTemplateSelector, userId, api
   );
   const cardElement = card.createCard();
   return cardElement;
@@ -98,11 +95,14 @@ const popupProfileEdit = new PopupWithForm({
       .finally(() => popupProfileEdit.renderLoading(false));
   },
 });
+
 popupProfileEdit.setEventListeners();
+
 buttonEdit.addEventListener("click", () => {
   const userData = userInfo.getUserInfo();
   nameInput.value = userData.name;
   jobInput.value = userData.about;
+  profilePopupFormValidate.resetValidation();
   popupProfileEdit.open();
 });
 
@@ -123,8 +123,11 @@ const popupCardAdd = new PopupWithForm({
       .finally(() => popupCardAdd.renderLoading(false));
   },
 });
+
 popupCardAdd.setEventListeners();
+
 buttonAdd.addEventListener("click", () => {
+  cardPopupFormValidate.resetValidation();
   popupCardAdd.open();
 });
 
@@ -145,8 +148,11 @@ const popupAvatarEdit = new PopupWithForm({
       .finally(() => popupAvatarEdit.renderLoading(false));
   },
 });
+
 popupAvatarEdit.setEventListeners();
+
 buttonAvatar.addEventListener("click", () => {
+  avatarPopupFormValidate.resetValidation();
   popupAvatarEdit.open();
 });
 
@@ -155,22 +161,13 @@ const viewImagePopup = new PopupWithImage(imagePopupSelector);
 viewImagePopup.setEventListeners();
 
 //Валидация формы модального окна с редактированием профиля
-const profilePopupFormValidate = new FormValidator(
-  validationConfig,
-  profilePopupForm
-);
+const profilePopupFormValidate = new FormValidator(validationConfig, profilePopupForm);
 profilePopupFormValidate.enableValidation();
 
 //Валидация формы модального окна с добавлением карточек
-const cardPopupFormValidate = new FormValidator(
-  validationConfig,
-  cardPopupForm
-);
+const cardPopupFormValidate = new FormValidator(validationConfig, cardPopupForm);
 cardPopupFormValidate.enableValidation();
 
 //Валидация формы обновления аватара
-const avatarPopupFormValidate = new FormValidator(
-  validationConfig,
-  avatarPopupForm
-);
+const avatarPopupFormValidate = new FormValidator(validationConfig, avatarPopupForm);
 avatarPopupFormValidate.enableValidation();

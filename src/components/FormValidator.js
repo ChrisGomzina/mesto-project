@@ -55,12 +55,8 @@ export default class FormValidator {
 
   //Скрытие всех ошибок
   _hideAllErrors() {
-    const errorElements = Array.from(
-      document.querySelectorAll(`.${this._errorClass}`)
-    );
-    const errorInputs = Array.from(
-      document.querySelectorAll(`.${this._inputErrorClass}`)
-    );
+    const errorElements = Array.from(document.querySelectorAll(`.${this._errorClass}`));
+    const errorInputs = Array.from(document.querySelectorAll(`.${this._inputErrorClass}`));
     errorElements.forEach((error) => {
       error.classList.remove(this._errorClass);
       error.textContent = "";
@@ -102,5 +98,11 @@ export default class FormValidator {
       evt.preventDefault();
     });
     this._setEventListeners();
+  }
+
+  //Сброс валидации
+  resetValidation() {
+    this._inputList.forEach((inputElement) => this._hideAllErrors(inputElement));
+    this._setSubmitButtonState();
   }
 }
