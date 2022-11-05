@@ -1,25 +1,25 @@
 export default class Popup {
   constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
+    this._escClose = this._handleEscClose.bind(this);
   }
 
   //Функция открытия мадального окна
   open() {
     this._popup.classList.add('popup_opened');
-    document.addEventListener('keydown', this._handleEscClose);
+    document.addEventListener('keydown', this._escClose);
   }
 
   //Функция закрытия мадального окна
   close() {
     this._popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', this._handleEscClose);
+    document.removeEventListener('keydown', this._escClose);
   }
 
   //Закрытие модальных окон нажатием на esc
   _handleEscClose(evt) {
     if (evt.key === "Escape") {
-      const activePopup = document.querySelector('.popup_opened');
-      this._close();
+      this.close();
     }
   }
 
